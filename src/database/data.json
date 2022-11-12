@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "imageUrl": "http://localhost/products/Type=Expresso.svg",
+      "name": "Expresso Tradicional",
+      "description": "O tradicional café feito com água quente e grãos moídos",
+      "value": 7.50,
+      "amount": 1
+    }, 
+    {
+      "id": 2,
+      "imageUrl": "http://localhost/products/Type=Americano.svg",
+      "name": "Expresso Americano",
+      "description": "Expresso diluído, menos intenso que o tradicional",
+      "value": 7.50,
+      "amount": 1
+    },
+    {
+      "id": 3,
+      "imageUrl": "http://localhost/products/Type=ExpressoCremoso.svg",
+      "name": "Expresso Cremoso",
+      "description": "Café expresso tradicional com espuma cremosa",
+      "value": 7.50,
+      "amount": 1
+    }
+  ]
+}
