@@ -24,9 +24,10 @@ interface ProductsType {
 
 interface ProductProps {
   product: ProductsType
+  onClick?: () => void
 }
 
-export function Product({ product }: ProductProps) {
+export function Product({ product, onClick }: ProductProps) {
   return (
     <Container>
       <img src={product.imageUrl} alt="Imagem do produto" />
@@ -40,7 +41,12 @@ export function Product({ product }: ProductProps) {
         </ProductContentHeader>
         <ProductContentFooter>
           <span>
-            R$ <strong>{product.value}</strong>
+            R${' '}
+            <strong>
+              {product.value.toLocaleString('pt-br', {
+                minimumFractionDigits: 2,
+              })}
+            </strong>
           </span>
 
           <ButtonsContainer>

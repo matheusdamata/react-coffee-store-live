@@ -125,6 +125,11 @@ export const ButtonsAddAndRemoveContent = styled.div`
 export const ButtonAddCart = styled.button`
   background: ${(props) => props.theme.purple};
 
+  &:hover {
+    transition: background-color 0.2s;
+    background: ${(props) => props.theme['purple-dark']};
+  }
+
   svg {
     color: ${(props) => props.theme.white};
   }
