@@ -1,4 +1,7 @@
 import {
+  ButtonAddCart,
+  ButtonsAddAndRemoveContent,
+  ButtonsContainer,
   CircleStatus,
   Container,
   Content,
@@ -7,6 +10,8 @@ import {
   ProductContentHeaderContent,
   ProductStock,
 } from './styles'
+
+import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 
 interface ProductsType {
   id: number
@@ -37,7 +42,21 @@ export function Product({ product }: ProductProps) {
           <span>
             R$ <strong>{product.value}</strong>
           </span>
-          <button>ADD</button>
+
+          <ButtonsContainer>
+            <ButtonsAddAndRemoveContent>
+              <button>
+                <Minus size={18} weight="fill" />
+              </button>
+              1
+              <button>
+                <Plus size={18} weight="fill" />
+              </button>
+            </ButtonsAddAndRemoveContent>
+            <ButtonAddCart>
+              <ShoppingCartSimple size={18} weight="fill" />
+            </ButtonAddCart>
+          </ButtonsContainer>
         </ProductContentFooter>
       </Content>
     </Container>

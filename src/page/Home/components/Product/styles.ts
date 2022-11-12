@@ -68,6 +68,12 @@ export const ProductContentFooter = styled.div`
   display: flex;
   flex-direction: row;
 
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+
   span {
     font-family: 'Roboto';
     font-size: 0.875rem;
@@ -78,5 +84,48 @@ export const ProductContentFooter = styled.div`
     font-family: 'Baloo 2';
     font-size: 1.5rem;
     font-weight: bold;
+  }
+
+  button {
+    border: 0;
+  }
+`
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  button {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 6px;
+  }
+
+  svg {
+    color: ${(props) => props.theme.purple};
+  }
+`
+
+export const ButtonsAddAndRemoveContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-right: 0.5rem;
+`
+
+export const ButtonAddCart = styled.button`
+  background: ${(props) => props.theme.purple};
+
+  svg {
+    color: ${(props) => props.theme.white};
   }
 `
