@@ -24,10 +24,17 @@ export const Container = styled.div`
   }
 `
 
-export const ProductStock = styled.span`
+interface ProductStockProps {
+  variant?: 'red'
+}
+
+export const ProductStock = styled.span<ProductStockProps>`
   font-size: 0.75rem;
 
-  color: ${(props) => props.theme['base-text']};
+  color: ${(props) =>
+    props.variant === 'red'
+      ? props.theme['red-remove']
+      : props.theme['base-text']};
 `
 
 export const Content = styled.div`
@@ -51,7 +58,7 @@ export const ProductContentHeaderContent = styled.div`
 `
 
 interface CircleStatusProps {
-  variant?: 'red'
+  variant: 'green' | 'red'
 }
 
 export const CircleStatus = styled.div<CircleStatusProps>`

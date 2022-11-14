@@ -51,9 +51,15 @@ export function Product({ product }: ProductProps) {
         <ProductContentHeader>
           <ProductContentHeaderContent>
             <h1>{product.name}</h1>
-            <ProductStock>Estoque: 10 unidades</ProductStock>
+            {product.amount === 0 ? (
+              <ProductStock variant="red">Produto sem estoque</ProductStock>
+            ) : (
+              <ProductStock>Estoque: {product.amount} unidades</ProductStock>
+            )}
           </ProductContentHeaderContent>
-          <CircleStatus></CircleStatus>
+          <CircleStatus
+            variant={product.amount === 0 ? 'red' : 'green'}
+          ></CircleStatus>
         </ProductContentHeader>
         <ProductContentFooter>
           <span>
@@ -65,23 +71,25 @@ export function Product({ product }: ProductProps) {
             </strong>
           </span>
 
-          <ButtonsContainer>
-            <ButtonsAddAndRemoveContent>
-              <button
-                onClick={() => setAmountProduct((state) => state - 1)}
-                disabled={amountProduct <= 1}
-              >
-                <Minus size={18} weight="fill" />
-              </button>
-              {amountProduct}
-              <button onClick={() => setAmountProduct((state) => state + 1)}>
-                <Plus size={18} weight="fill" />
-              </button>
-            </ButtonsAddAndRemoveContent>
-            <ButtonAddCart onClick={handleAddToCart}>
-              <ShoppingCartSimple size={18} weight="fill" />
-            </ButtonAddCart>
-          </ButtonsContainer>
+          {product.amount >= 1 ? (
+            <ButtonsContainer>
+              <ButtonsAddAndRemoveContent>
+                <button
+                  onClick={() => setAmountProduct((state) => state - 1)}
+                  disabled={amountProduct <= 1}
+                >
+                  <Minus size={18} weight="fill" />
+                </button>
+                {amountProduct}
+                <button onClick={() => setAmountProduct((state) => state + 1)}>
+                  <Plus size={18} weight="fill" />
+                </button>
+              </ButtonsAddAndRemoveContent>
+              <ButtonAddCart onClick={handleAddToCart}>
+                <ShoppingCartSimple size={18} weight="fill" />
+              </ButtonAddCart>
+            </ButtonsContainer>
+          ) : null}
         </ProductContentFooter>
       </Content>
     </Container>
