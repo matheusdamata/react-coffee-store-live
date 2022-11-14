@@ -1,36 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { Header } from '../../components/Header'
 import api from '../../config/api'
+import { Context } from '../../context/Context'
 import { Product } from './components/Product'
 import { Search } from './components/Search'
 import { Container, ProductsContainer } from './styles'
 
-type ProductsType = {
-  id: number
-  amount: number
-  description: string
-  imageUrl: string
-  name: string
-  value: number
-}
-
 export function Home() {
-  const [products, setProducts] = useState<ProductsType[]>([])
+  const { products, dispatch } = useContext(Context)
 
-  async function getProductsStock() {
+  const getProductsStock = useCallback(async () => {
     try {
       const json = await api.getProduct()
       if (json.length > 0) {
-        setProducts(() => json)
+        dispatch({
+          type: 'GET_PRODUCTS',
+          payload: json,
+        })
       }
     } catch (e) {
       console.log('Tente novamente mais tarde!', e)
     }
-  }
+  }, [dispatch])
 
   useEffect(() => {
     getProductsStock()
-  }, [])
+  }, [getProductsStock])
 
   return (
     <Container>

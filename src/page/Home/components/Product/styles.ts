@@ -120,6 +120,11 @@ export const ButtonsAddAndRemoveContent = styled.div`
   gap: 5px;
 
   margin-right: 0.5rem;
+
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `
 
 export const ButtonAddCart = styled.button`

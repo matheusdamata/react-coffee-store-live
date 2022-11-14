@@ -23,4 +23,25 @@ export const Container = styled.header`
       color: ${(props) => props.theme['yellow-dark']};
     }
   }
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    position: absolute;
+    margin-top: -40px;
+    margin-right: -40px;
+
+    border-radius: 50%;
+
+    background: ${(props) => props.theme['yellow-dark']};
+
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: ${(props) => props.theme.white};
+  }
 `
