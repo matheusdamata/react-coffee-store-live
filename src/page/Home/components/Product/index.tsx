@@ -41,6 +41,7 @@ export function Product({ product }: ProductProps) {
         name: product.name,
         amount: amountProduct,
         imageUrl: product.imageUrl,
+        value: product.value,
       },
     })
   }

@@ -5,6 +5,7 @@ export type CartProps = {
   name: string
   amount: number
   imageUrl: string
+  value: number
 }
 
 export type ProductProps = {
@@ -39,7 +40,10 @@ export const userReducer = (state: UserType, action: any) => {
         })
       }
 
-      return state
+      return produce(state, (draft) => {
+        draft.carts[currentProductIndex].amount =
+          draft.carts[currentProductIndex].amount + action.payload.amount
+      })
     }
     case 'INCREMENT_PRODUCT': {
       const currentProductIndex = state.carts.findIndex((product) => {

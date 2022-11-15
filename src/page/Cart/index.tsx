@@ -1,14 +1,19 @@
-import { Coffee } from 'phosphor-react'
+import { Coffee, Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 import { useContext } from 'react'
 import { Context } from '../../context/Context'
 import {
+  ButtonAddCart,
   ButtonBase,
+  ButtonsAddAndRemoveContent,
+  ButtonsContainer,
   ClearCart,
   Container,
   EmptyContainer,
   EmptyContent,
   FooterContainer,
-  ProductContainer,
+  ProductContent,
+  ProductContentFooter,
+  ProductInfo,
   ProductsContainer,
 } from './styles'
 
@@ -36,10 +41,47 @@ export function Cart() {
         <>
           <ProductsContainer>
             {carts.map((cart) => (
-              <ProductContainer key={cart.id}>
+              <ProductContent key={cart.id}>
                 <img src={cart.imageUrl} alt="" />
-                <h1>{cart.name}</h1>
-              </ProductContainer>
+                <ProductInfo>
+                  <div>
+                    <h1>{cart.name}</h1>
+                  </div>
+
+                  <ProductContentFooter>
+                    <span>
+                      R${' '}
+                      <strong>
+                        {cart.value.toLocaleString('pt-br', {
+                          minimumFractionDigits: 2,
+                        })}
+                      </strong>
+                    </span>
+
+                    <ButtonsContainer>
+                      <ButtonsAddAndRemoveContent>
+                        <button
+                          // onClick={() => setAmountProduct((state) => state - 1)}
+                          disabled={cart.amount <= 1}
+                        >
+                          <Minus size={18} weight="fill" />
+                        </button>
+                        {cart.amount}
+                        <button
+                        // onClick={() => setAmountProduct((state) => state + 1)}
+                        >
+                          <Plus size={18} weight="fill" />
+                        </button>
+                      </ButtonsAddAndRemoveContent>
+                      <ButtonAddCart
+                      // onClick={handleAddToCart}
+                      >
+                        <ShoppingCartSimple size={18} weight="fill" />
+                      </ButtonAddCart>
+                    </ButtonsContainer>
+                  </ProductContentFooter>
+                </ProductInfo>
+              </ProductContent>
             ))}
           </ProductsContainer>
           {carts.length !== 0 ? (

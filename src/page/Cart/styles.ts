@@ -5,6 +5,25 @@ export const Container = styled.main`
   flex-direction: column;
 `
 
+export const ButtonBase = styled.button`
+  width: 100%;
+  height: 40px;
+
+  border: 0;
+  border-radius: 6px;
+
+  color: ${(props) => props.theme.white};
+
+  background: ${(props) => props.theme.purple};
+
+  cursor: pointer;
+
+  &:hover {
+    transition: background-color 0.2s;
+    background: ${(props) => props.theme['purple-dark']};
+  }
+`
+
 export const EmptyContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,6 +52,33 @@ export const EmptyContent = styled.div`
   margin-bottom: 6rem;
 `
 
+export const ProductContentFooter = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+
+  span {
+    font-family: 'Roboto';
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  strong {
+    font-family: 'Baloo 2';
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  button {
+    border: 0;
+  }
+`
+
 export const ProductsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,8 +88,9 @@ export const ProductsContainer = styled.div`
   gap: 1rem;
 `
 
-export const ProductContainer = styled.div`
+export const ProductContent = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
   padding: 0.75rem 0;
 
@@ -66,6 +113,13 @@ export const ProductContainer = styled.div`
   }
 `
 
+export const ProductInfo = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+`
+
 export const FooterContainer = styled.div`
   width: 100%;
 
@@ -75,22 +129,52 @@ export const FooterContainer = styled.div`
   margin-top: 1rem;
 `
 
-export const ButtonBase = styled.button`
-  width: 100%;
-  height: 40px;
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 
-  border: 0;
-  border-radius: 6px;
+  button {
+    width: 32px;
+    height: 32px;
 
-  color: ${(props) => props.theme.white};
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    border-radius: 6px;
+  }
+
+  svg {
+    color: ${(props) => props.theme.purple};
+  }
+`
+
+export const ButtonsAddAndRemoveContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-right: 0.5rem;
+
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`
+
+export const ButtonAddCart = styled.button`
   background: ${(props) => props.theme.purple};
-
-  cursor: pointer;
 
   &:hover {
     transition: background-color 0.2s;
     background: ${(props) => props.theme['purple-dark']};
+  }
+
+  svg {
+    color: ${(props) => props.theme.white};
   }
 `
 
