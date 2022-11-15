@@ -1,12 +1,20 @@
-import { useCallback, useContext, useEffect } from 'react'
+import { MagnifyingGlass } from 'phosphor-react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
 import api from '../../config/api'
 import { Context } from '../../context/Context'
 import { Product } from './components/Product'
-import { Search } from './components/Search'
-import { Container, ProductsContainer } from './styles'
+import {
+  Container,
+  IconContent,
+  InputSearch,
+  ProductsContainer,
+  SearchContainer,
+} from './styles'
 
 export function Home() {
+  const [search, setSearch] = useState('')
+
   const { products, dispatch } = useContext(Context)
 
   const getProductsStock = useCallback(async () => {
@@ -32,11 +40,28 @@ export function Home() {
       <Header />
 
       <h1>Encontre o café perfeito</h1>
-      <Search />
+
+      <SearchContainer>
+        <InputSearch
+          type="text"
+          placeholder="Digite o nome do café..."
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <IconContent>
+          <MagnifyingGlass size={32} />
+        </IconContent>
+      </SearchContainer>
+
       <ProductsContainer>
-        {products.map((product) => (
-          <Product key={product.id} product={product} />
-        ))}
+        {products
+          .filter((product) =>
+            search === ''
+              ? product
+              : product.name.toLowerCase().includes(search),
+          )
+          .map((product) => (
+            <Product key={product.id} product={product} />
+          ))}
       </ProductsContainer>
     </Container>
   )
