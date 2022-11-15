@@ -1,6 +1,5 @@
 import { MagnifyingGlass } from 'phosphor-react'
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { Header } from '../../components/Header'
 import api from '../../config/api'
 import { Context } from '../../context/Context'
 import { Product } from './components/Product'
@@ -37,8 +36,6 @@ export function Home() {
 
   return (
     <Container>
-      <Header />
-
       <h1>Encontre o café perfeito</h1>
 
       <SearchContainer>

@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 450px;
-
   & > h1 {
     font-family: 'Baloo 2';
     font-size: 2rem;
