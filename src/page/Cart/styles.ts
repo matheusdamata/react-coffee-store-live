@@ -6,25 +6,6 @@ export const Container = styled.main`
   flex-direction: column;
 `
 
-export const ButtonBase = styled.button`
-  width: 100%;
-  height: 40px;
-
-  border: 0;
-  border-radius: 6px;
-
-  color: ${(props) => props.theme.white};
-
-  background: ${(props) => props.theme.purple};
-
-  cursor: pointer;
-
-  &:hover {
-    transition: background-color 0.2s;
-    background: ${(props) => props.theme['purple-dark']};
-  }
-`
-
 export const EmptyContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,7 +27,7 @@ export const EmptyContainer = styled.div`
   }
 `
 
-export const ButtonBackHome = styled(NavLink)`
+export const ButtonNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: center;

@@ -3,8 +3,7 @@ import { useContext } from 'react'
 import { Context } from '../../context/Context'
 import {
   ButtonAddCart,
-  ButtonBackHome,
-  ButtonBase,
+  ButtonNavLink,
   ButtonsAddAndRemoveContent,
   ButtonsContainer,
   ClearCart,
@@ -63,7 +62,7 @@ export function Cart() {
             <h1>Carrinho vázio</h1>
           </EmptyContent>
 
-          <ButtonBackHome to="/">Fazer compras</ButtonBackHome>
+          <ButtonNavLink to="/">Fazer compras</ButtonNavLink>
         </EmptyContainer>
       ) : (
         <>
@@ -112,7 +111,7 @@ export function Cart() {
           </ProductsContainer>
           {carts.length !== 0 ? (
             <FooterContainer>
-              <ButtonBase>Finalizar pedido</ButtonBase>
+              <ButtonNavLink to="/checkout">Finalizar pedido</ButtonNavLink>
               <ClearCart onClick={handleClearCart}>Limpar carrinho</ClearCart>
             </FooterContainer>
           ) : null}
