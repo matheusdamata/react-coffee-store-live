@@ -1,5 +1,5 @@
 import { MagnifyingGlass } from 'phosphor-react'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import api from '../../config/api'
 import { Context } from '../../context/Context'
 import { Product } from './components/Product'
@@ -16,23 +16,19 @@ export function Home() {
 
   const { products, dispatch } = useContext(Context)
 
-  const getProductsStock = useCallback(async () => {
-    try {
-      const json = await api.getProduct()
-      if (json.length > 0) {
-        dispatch({
-          type: 'GET_PRODUCTS',
-          payload: json,
-        })
-      }
-    } catch (e) {
-      console.log('Tente novamente mais tarde!', e)
-    }
-  }, [dispatch])
-
   useEffect(() => {
-    getProductsStock()
-  }, [getProductsStock])
+    if (products.length >= 1) return
+
+    const fetchProducts = async () => {
+      const json = await api.getProduct()
+      dispatch({
+        type: 'GET_PRODUCTS',
+        payload: json,
+      })
+    }
+
+    fetchProducts()
+  }, [products, dispatch])
 
   return (
     <Container>

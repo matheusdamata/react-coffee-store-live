@@ -17,7 +17,7 @@ import { Context } from '../../../../context/Context'
 
 interface ProductsType {
   id: number
-  amount: number
+  stock: number
   description: string
   imageUrl: string
   name: string
@@ -40,6 +40,7 @@ export function Product({ product }: ProductProps) {
         id: product.id,
         name: product.name,
         amount: amountProduct,
+        imageUrl: product.imageUrl,
       },
     })
   }
@@ -51,14 +52,14 @@ export function Product({ product }: ProductProps) {
         <ProductContentHeader>
           <ProductContentHeaderContent>
             <h1>{product.name}</h1>
-            {product.amount === 0 ? (
+            {product.stock === 0 ? (
               <ProductStock variant="red">Produto sem estoque</ProductStock>
             ) : (
-              <ProductStock>Estoque: {product.amount} unidades</ProductStock>
+              <ProductStock>Estoque: {product.stock} unidades</ProductStock>
             )}
           </ProductContentHeaderContent>
           <CircleStatus
-            variant={product.amount === 0 ? 'red' : 'green'}
+            variant={product.stock === 0 ? 'red' : 'green'}
           ></CircleStatus>
         </ProductContentHeader>
         <ProductContentFooter>
@@ -71,7 +72,7 @@ export function Product({ product }: ProductProps) {
             </strong>
           </span>
 
-          {product.amount >= 1 ? (
+          {product.stock >= 1 ? (
             <ButtonsContainer>
               <ButtonsAddAndRemoveContent>
                 <button

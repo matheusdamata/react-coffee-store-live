@@ -6,7 +6,7 @@
       "name": "Expresso Tradicional",
       "description": "O tradicional café feito com água quente e grãos moídos",
       "value": 7.50,
-      "amount": 1
+      "stock": 10
     }, 
     {
       "id": 2,
@@ -14,7 +14,7 @@
       "name": "Expresso Americano",
       "description": "Expresso diluído, menos intenso que o tradicional",
       "value": 7.50,
-      "amount": 0
+      "stock": 0
     },
     {
       "id": 3,
@@ -22,7 +22,7 @@
       "name": "Expresso Cremoso",
       "description": "Café expresso tradicional com espuma cremosa",
       "value": 7.50,
-      "amount": 1
+      "stock": 7
     }
   ]
 }

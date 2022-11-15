@@ -4,18 +4,23 @@ import LogoImage from '../../assets/logo.svg'
 import { ShoppingCart } from 'phosphor-react'
 import { useContext } from 'react'
 import { Context } from '../../context/Context'
+import { NavLink } from 'react-router-dom'
 
 export function Header() {
   const { carts } = useContext(Context)
 
   return (
     <Container>
-      <img src={LogoImage} alt="" />
+      <NavLink to="/">
+        <img src={LogoImage} alt="" />
+      </NavLink>
 
-      <button>
-        <ShoppingCart size={25} weight="fill" />
-        <span>{carts.length}</span>
-      </button>
+      <NavLink to="/cart">
+        <button>
+          <ShoppingCart size={25} weight="fill" />
+          <span>{carts.length}</span>
+        </button>
+      </NavLink>
     </Container>
   )
 }
