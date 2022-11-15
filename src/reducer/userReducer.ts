@@ -54,6 +54,21 @@ export const userReducer = (state: UserType, action: any) => {
         draft.carts[currentProductIndex].amount += action.payload.increment
       })
     }
+    case 'DECREMENT_PRODUCT': {
+      const currentProductIndex = state.carts.findIndex((product) => {
+        return product.id === action.payload.id
+      })
+
+      return produce(state, (draft) => {
+        draft.carts[currentProductIndex].amount += action.payload.increment
+      })
+    }
+    case 'REMOVE_FROM_CART': {
+      return {
+        ...state,
+        carts: state.carts.filter((product) => product.id !== action.payload),
+      }
+    }
     case 'REMOVE_ALL': {
       return produce(state, (draft) => {
         draft.carts = []

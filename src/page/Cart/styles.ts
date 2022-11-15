@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
 export const Container = styled.main`
   display: flex;
@@ -42,6 +43,30 @@ export const EmptyContainer = styled.div`
   svg {
     margin-right: 1rem;
     color: ${(props) => props.theme['base-text']};
+  }
+`
+
+export const ButtonBackHome = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 40px;
+
+  border: 0;
+  border-radius: 6px;
+
+  color: ${(props) => props.theme.white};
+  background: ${(props) => props.theme.purple};
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  &:hover {
+    transition: background-color 0.2s;
+    background: ${(props) => props.theme['purple-dark']};
   }
 `
 

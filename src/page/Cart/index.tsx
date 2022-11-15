@@ -1,8 +1,9 @@
-import { Coffee, Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
+import { Coffee, Minus, Plus, Trash } from 'phosphor-react'
 import { useContext } from 'react'
 import { Context } from '../../context/Context'
 import {
   ButtonAddCart,
+  ButtonBackHome,
   ButtonBase,
   ButtonsAddAndRemoveContent,
   ButtonsContainer,
@@ -26,6 +27,33 @@ export function Cart() {
     })
   }
 
+  function incrementProduct(id: number) {
+    dispatch({
+      type: 'INCREMENT_PRODUCT',
+      payload: {
+        id,
+        increment: 1,
+      },
+    })
+  }
+
+  function decrementProduct(id: number) {
+    dispatch({
+      type: 'DECREMENT_PRODUCT',
+      payload: {
+        id,
+        increment: -1,
+      },
+    })
+  }
+
+  function handleRemoveProduct(id: number) {
+    dispatch({
+      type: 'REMOVE_FROM_CART',
+      payload: id,
+    })
+  }
+
   return (
     <Container>
       {carts.length === 0 ? (
@@ -35,7 +63,7 @@ export function Cart() {
             <h1>Carrinho vázio</h1>
           </EmptyContent>
 
-          <ButtonBase>Fazer compras</ButtonBase>
+          <ButtonBackHome to="/">Fazer compras</ButtonBackHome>
         </EmptyContainer>
       ) : (
         <>
@@ -61,22 +89,20 @@ export function Cart() {
                     <ButtonsContainer>
                       <ButtonsAddAndRemoveContent>
                         <button
-                          // onClick={() => setAmountProduct((state) => state - 1)}
+                          onClick={() => decrementProduct(cart.id)}
                           disabled={cart.amount <= 1}
                         >
                           <Minus size={18} weight="fill" />
                         </button>
                         {cart.amount}
-                        <button
-                        // onClick={() => setAmountProduct((state) => state + 1)}
-                        >
+                        <button onClick={() => incrementProduct(cart.id)}>
                           <Plus size={18} weight="fill" />
                         </button>
                       </ButtonsAddAndRemoveContent>
                       <ButtonAddCart
-                      // onClick={handleAddToCart}
+                        onClick={() => handleRemoveProduct(cart.id)}
                       >
-                        <ShoppingCartSimple size={18} weight="fill" />
+                        <Trash size={18} weight="fill" />
                       </ButtonAddCart>
                     </ButtonsContainer>
                   </ProductContentFooter>
