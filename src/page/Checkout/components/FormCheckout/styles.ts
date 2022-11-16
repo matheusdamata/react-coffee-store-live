@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const InputBase = styled.input`
-  width: 12.5rem;
+  width: 8rem;
 
   border: 0;
   border-radius: 6px;
@@ -19,6 +19,10 @@ export const InputBaseFlex = styled(InputBase)`
 `
 
 export const InputBaseMargin = styled(InputBase)`
+  margin-right: 0.75rem;
+`
+export const InputBaseNumberMargin = styled(InputBase)`
+  width: 6rem;
   margin-right: 0.75rem;
 `
 

@@ -15,6 +15,7 @@ import {
   ProductContentFooter,
   ProductInfo,
   ProductsContainer,
+  ProductsFooter,
 } from './styles'
 
 export function Cart() {
@@ -52,6 +53,11 @@ export function Cart() {
       payload: id,
     })
   }
+
+  const totalCart = carts.reduce(
+    (sumTotal, cart) => sumTotal + cart.value * cart.amount,
+    0,
+  )
 
   return (
     <Container>
@@ -109,6 +115,14 @@ export function Cart() {
               </ProductContent>
             ))}
           </ProductsContainer>
+
+          <ProductsFooter>
+            <span>Total</span>
+            <strong>
+              R${' '}
+              {totalCart.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
+            </strong>
+          </ProductsFooter>
           {carts.length !== 0 ? (
             <FooterContainer>
               <ButtonNavLink to="/checkout">Ir para o checkout</ButtonNavLink>

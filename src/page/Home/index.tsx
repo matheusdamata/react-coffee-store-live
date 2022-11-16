@@ -17,14 +17,19 @@ export function Home() {
   const { products, dispatch } = useContext(Context)
 
   useEffect(() => {
-    if (products.length >= 1) return
+    if (products.length > 0) return
 
     const fetchProducts = async () => {
-      const json = await api.getProduct()
-      dispatch({
-        type: 'GET_PRODUCTS',
-        payload: json,
-      })
+      try {
+        const json = await api.getProduct()
+
+        dispatch({
+          type: 'GET_PRODUCTS',
+          payload: json,
+        })
+      } catch (e) {
+        console.log('Tente novamente mais tarde!', e)
+      }
     }
 
     fetchProducts()

@@ -12,8 +12,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    height: 100vh;
-
     background: ${(props) => props.theme['base-card']};
     color: ${(props) => props.theme['base-title']};
     -webkit-font-smoothing: antialiased;

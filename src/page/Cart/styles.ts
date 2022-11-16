@@ -126,6 +126,14 @@ export const ProductInfo = styled.div`
   flex-direction: column;
 `
 
+export const ProductsFooter = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-top: 1rem;
+`
+
 export const FooterContainer = styled.div`
   width: 100%;
 

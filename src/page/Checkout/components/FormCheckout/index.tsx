@@ -7,6 +7,7 @@ import {
   InputBaseFlexAndMargin,
   InputBaseMargin,
   InputBaseMinWidth,
+  InputBaseNumberMargin,
 } from './styles'
 
 export function FormCheckout() {
@@ -19,7 +20,7 @@ export function FormCheckout() {
         <InputBaseFlex type="text" placeholder="Rua" {...register('address')} />
       </FormFlex>
       <FormFlex>
-        <InputBaseMargin
+        <InputBaseNumberMargin
           type="text"
           placeholder="Número"
           {...register('number')}
