@@ -34,7 +34,7 @@ type NewSalesOrderFormData = zod.infer<typeof newSalesOrderFormValidationSchema>
 export function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState('')
 
-  const { carts } = useContext(Context)
+  const { carts, dispatch } = useContext(Context)
 
   const cartNumbers = carts.length
   const isSubmitSaleForm = !cartNumbers
@@ -55,6 +55,10 @@ export function Checkout() {
   const { handleSubmit, reset } = newSalesOrderForm
 
   function handleNewSaleSubmit(data: NewSalesOrderFormData) {
+    dispatch({
+      type: 'REMOVE_ALL',
+    })
+
     console.log(data, selectedPayment)
     reset()
   }
