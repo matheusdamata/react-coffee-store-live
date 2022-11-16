@@ -111,7 +111,7 @@ export function Cart() {
           </ProductsContainer>
           {carts.length !== 0 ? (
             <FooterContainer>
-              <ButtonNavLink to="/checkout">Finalizar pedido</ButtonNavLink>
+              <ButtonNavLink to="/checkout">Ir para o checkout</ButtonNavLink>
               <ClearCart onClick={handleClearCart}>Limpar carrinho</ClearCart>
             </FooterContainer>
           ) : null}

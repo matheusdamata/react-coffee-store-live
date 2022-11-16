@@ -38,7 +38,7 @@ export function Home() {
         <InputSearch
           type="text"
           placeholder="Digite o nome do café..."
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
         <IconContent>
           <MagnifyingGlass size={32} />
