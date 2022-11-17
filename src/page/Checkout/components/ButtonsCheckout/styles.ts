@@ -16,6 +16,7 @@ export const Button = styled.button`
   background: ${(props) => props.theme['base-button']};
 
   padding: 1rem;
+  white-space: nowrap;
 
   svg {
     color: ${(props) => props.theme.purple};

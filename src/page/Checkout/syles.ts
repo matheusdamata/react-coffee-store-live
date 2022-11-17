@@ -71,7 +71,6 @@ export const ButtonsPayment = styled.div`
   border-radius: 6px;
   background: ${(props) => props.theme.white};
 
-  padding: 1rem;
   margin-top: 1rem;
 `
 

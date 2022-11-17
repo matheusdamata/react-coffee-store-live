@@ -1,7 +1,5 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
-
-import Switch from '@mui/material/Switch'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
@@ -17,11 +15,11 @@ import {
   Container,
   FormContainer,
   FormHeaderTitle,
-  SwitchContainer,
 } from './syles'
 import { FormCheckout } from './components/FormCheckout'
 
 import { Context } from '../../context/Context'
+import { Navigate } from 'react-router-dom'
 
 const newSalesOrderFormValidationSchema = zod.object({
   cep: zod.string().min(8).max(8),
@@ -36,7 +34,6 @@ const newSalesOrderFormValidationSchema = zod.object({
 type NewSalesOrderFormData = zod.infer<typeof newSalesOrderFormValidationSchema>
 
 export function Checkout() {
-  const [isFormCompleted, setIsFormCompleted] = useState(false)
   const [selectedPayment, setSelectedPayment] = useState('')
 
   const { carts, dispatch } = useContext(Context)
@@ -63,8 +60,6 @@ export function Checkout() {
     dispatch({
       type: 'REMOVE_ALL',
     })
-
-    console.log(selectedPayment)
     reset()
   }
 
@@ -86,10 +81,6 @@ export function Checkout() {
 
   const isCheckoutComplete = isFormComplete && !isSubmitSaleForm
 
-  const handleChangeSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsFormCompleted(event.target.checked)
-  }
-
   return (
     <Container>
       <h1>Complete seu pedido</h1>
@@ -103,40 +94,27 @@ export function Checkout() {
           </div>
         </FormHeaderTitle>
 
-        {!isFormCompleted ? (
-          <form
-            id="formNewSales"
-            onSubmit={handleSubmit(handleNewSaleSubmit)}
-            action=""
-          >
-            <FormProvider {...newSalesOrderForm}>
-              <FormCheckout />
-            </FormProvider>
-          </form>
-        ) : null}
+        <form
+          id="formNewSales"
+          onSubmit={handleSubmit(handleNewSaleSubmit)}
+          action=""
+        >
+          <FormProvider {...newSalesOrderForm}>
+            <FormCheckout />
+          </FormProvider>
+        </form>
 
-        <SwitchContainer>
-          <span>Endereço completo?</span>
-          <Switch
-            color="secondary"
-            checked={isFormCompleted}
-            onChange={handleChangeSwitch}
-          />
-        </SwitchContainer>
-      </FormContainer>
+        <ButtonsPayment>
+          <ButtonsHeaderTitle>
+            <CurrencyDollar size={22} />
+            <div>
+              <strong>Pagamento</strong>
+              <p>
+                O pagamento é feito na entrega. Escolha a forma que deseja pagar
+              </p>
+            </div>
+          </ButtonsHeaderTitle>
 
-      <ButtonsPayment>
-        <ButtonsHeaderTitle>
-          <CurrencyDollar size={22} />
-          <div>
-            <strong>Pagamento</strong>
-            <p>
-              O pagamento é feito na entrega. Escolha a forma que deseja pagar
-            </p>
-          </div>
-        </ButtonsHeaderTitle>
-
-        {isFormCompleted ? (
           <ButtonsPaymentContent>
             <ButtonsCheckout
               name="credit-card"
@@ -151,8 +129,8 @@ export function Checkout() {
               onClick={() => setSelectedPayment('Dinheiro')}
             />
           </ButtonsPaymentContent>
-        ) : null}
-      </ButtonsPayment>
+        </ButtonsPayment>
+      </FormContainer>
 
       <ButtonFinishedCheckout
         form="formNewSales"
@@ -161,6 +139,8 @@ export function Checkout() {
       >
         Finalizar pedido
       </ButtonFinishedCheckout>
+
+      {/* {isCheckoutComplete ? <Navigate to="/success"></Navigate> : null} */}
     </Container>
   )
 }
