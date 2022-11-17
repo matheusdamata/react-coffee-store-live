@@ -1,4 +1,7 @@
+import React, { useContext, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
+
+import Switch from '@mui/material/Switch'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
@@ -14,16 +17,17 @@ import {
   Container,
   FormContainer,
   FormHeaderTitle,
+  SwitchContainer,
 } from './syles'
 import { FormCheckout } from './components/FormCheckout'
-import { useContext, useState } from 'react'
+
 import { Context } from '../../context/Context'
 
 const newSalesOrderFormValidationSchema = zod.object({
   cep: zod.string().min(8).max(8),
-  address: zod.string().min(1, 'O campo "Rua" é necessário!'),
+  address: zod.string().min(1, { message: 'Required' }),
   number: zod.string().min(1, 'O campo "Número" é necessário!'),
-  complement: zod.string(),
+  complement: zod.string().optional(),
   district: zod.string().min(1, 'O campo "Bairro" é necessário!'),
   city: zod.string().min(1, 'O campo "Cidade" é necessário!'),
   uf: zod.string().min(1, 'O campo "UF" é necessário!'),
@@ -32,6 +36,7 @@ const newSalesOrderFormValidationSchema = zod.object({
 type NewSalesOrderFormData = zod.infer<typeof newSalesOrderFormValidationSchema>
 
 export function Checkout() {
+  const [isFormCompleted, setIsFormCompleted] = useState(false)
   const [selectedPayment, setSelectedPayment] = useState('')
 
   const { carts, dispatch } = useContext(Context)
@@ -52,15 +57,37 @@ export function Checkout() {
     },
   })
 
-  const { handleSubmit, reset } = newSalesOrderForm
+  const { handleSubmit, reset, watch } = newSalesOrderForm
 
   function handleNewSaleSubmit(data: NewSalesOrderFormData) {
     dispatch({
       type: 'REMOVE_ALL',
     })
 
-    console.log(data, selectedPayment)
+    console.log(selectedPayment)
     reset()
+  }
+
+  const inputCEP = watch('cep')
+  const inputUF = watch('uf')
+  const inputADDRESS = watch('address')
+  const inputDISTRICT = watch('district')
+  const inputNUMBER = watch('number')
+  const inputCITY = watch('city')
+
+  const isFormComplete = !!(
+    inputCEP.length > 0 &&
+    inputUF.length > 0 &&
+    inputADDRESS.length > 0 &&
+    inputDISTRICT.length > 0 &&
+    inputNUMBER.length > 0 &&
+    inputCITY.length > 0
+  )
+
+  const isCheckoutComplete = isFormComplete && !isSubmitSaleForm
+
+  const handleChangeSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsFormCompleted(event.target.checked)
   }
 
   return (
@@ -76,15 +103,26 @@ export function Checkout() {
           </div>
         </FormHeaderTitle>
 
-        <form
-          id="formNewSales"
-          onSubmit={handleSubmit(handleNewSaleSubmit)}
-          action=""
-        >
-          <FormProvider {...newSalesOrderForm}>
-            <FormCheckout />
-          </FormProvider>
-        </form>
+        {!isFormCompleted ? (
+          <form
+            id="formNewSales"
+            onSubmit={handleSubmit(handleNewSaleSubmit)}
+            action=""
+          >
+            <FormProvider {...newSalesOrderForm}>
+              <FormCheckout />
+            </FormProvider>
+          </form>
+        ) : null}
+
+        <SwitchContainer>
+          <span>Endereço completo?</span>
+          <Switch
+            color="secondary"
+            checked={isFormCompleted}
+            onChange={handleChangeSwitch}
+          />
+        </SwitchContainer>
       </FormContainer>
 
       <ButtonsPayment>
@@ -98,26 +136,28 @@ export function Checkout() {
           </div>
         </ButtonsHeaderTitle>
 
-        <ButtonsPaymentContent>
-          <ButtonsCheckout
-            name="credit-card"
-            onClick={() => setSelectedPayment('Cartão de Crédito')}
-          />
-          <ButtonsCheckout
-            name="debit-card"
-            onClick={() => setSelectedPayment('Cartão de Débito')}
-          />
-          <ButtonsCheckout
-            name="money"
-            onClick={() => setSelectedPayment('Dinheiro')}
-          />
-        </ButtonsPaymentContent>
+        {isFormCompleted ? (
+          <ButtonsPaymentContent>
+            <ButtonsCheckout
+              name="credit-card"
+              onClick={() => setSelectedPayment('Cartão de Crédito')}
+            />
+            <ButtonsCheckout
+              name="debit-card"
+              onClick={() => setSelectedPayment('Cartão de Débito')}
+            />
+            <ButtonsCheckout
+              name="money"
+              onClick={() => setSelectedPayment('Dinheiro')}
+            />
+          </ButtonsPaymentContent>
+        ) : null}
       </ButtonsPayment>
 
       <ButtonFinishedCheckout
         form="formNewSales"
         type="submit"
-        disabled={isSubmitSaleForm}
+        disabled={!isCheckoutComplete}
       >
         Finalizar pedido
       </ButtonFinishedCheckout>

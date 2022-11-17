@@ -52,6 +52,18 @@ export const FormHeaderTitle = styled.div`
   }
 `
 
+export const SwitchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  span {
+    font-size: 0.75rem;
+
+    color: ${(props) => props.theme.purple};
+  }
+`
+
 export const ButtonsPayment = styled.div`
   display: flex;
   flex-direction: column;
