@@ -15,15 +15,21 @@ export function FormCheckout() {
 
   return (
     <>
-      <InputBase type="text" placeholder="CEP" {...register('cep')} />
+      <InputBase type="text" placeholder="CEP" {...register('cep')} required />
       <FormFlex>
-        <InputBaseFlex type="text" placeholder="Rua" {...register('address')} />
+        <InputBaseFlex
+          type="text"
+          placeholder="Rua"
+          {...register('address')}
+          required
+        />
       </FormFlex>
       <FormFlex>
         <InputBaseNumberMargin
           type="text"
           placeholder="Número"
           {...register('number')}
+          required
         />
         <InputBaseFlex
           type="text"
@@ -36,13 +42,20 @@ export function FormCheckout() {
           type="text"
           placeholder="Bairro"
           {...register('district')}
+          required
         />
         <InputBaseFlexAndMargin
           type="text"
           placeholder="Cidade"
           {...register('city')}
+          required
         />
-        <InputBaseMinWidth type="text" placeholder="UF" {...register('uf')} />
+        <InputBaseMinWidth
+          type="text"
+          placeholder="UF"
+          {...register('uf')}
+          required
+        />
       </FormFlex>
     </>
   )

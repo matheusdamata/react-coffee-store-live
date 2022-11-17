@@ -23,7 +23,7 @@ import { Navigate } from 'react-router-dom'
 
 const newSalesOrderFormValidationSchema = zod.object({
   cep: zod.string().min(8).max(8),
-  address: zod.string().min(1, { message: 'Required' }),
+  address: zod.string().min(1, 'O campo "Rua" é necessário!'),
   number: zod.string().min(1, 'O campo "Número" é necessário!'),
   complement: zod.string().optional(),
   district: zod.string().min(1, 'O campo "Bairro" é necessário!'),
@@ -35,11 +35,12 @@ type NewSalesOrderFormData = zod.infer<typeof newSalesOrderFormValidationSchema>
 
 export function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState('')
+  const [isCheckoutComplete, setIsCheckoutComplete] = useState(false)
 
   const { carts, dispatch } = useContext(Context)
 
   const cartNumbers = carts.length
-  const isSubmitSaleForm = !cartNumbers
+  const isSubmitSaleForm = cartNumbers
 
   const newSalesOrderForm = useForm<NewSalesOrderFormData>({
     resolver: zodResolver(newSalesOrderFormValidationSchema),
@@ -54,32 +55,16 @@ export function Checkout() {
     },
   })
 
-  const { handleSubmit, reset, watch } = newSalesOrderForm
+  const { handleSubmit, reset } = newSalesOrderForm
 
   function handleNewSaleSubmit(data: NewSalesOrderFormData) {
     dispatch({
       type: 'REMOVE_ALL',
     })
+
+    setIsCheckoutComplete(true)
     reset()
   }
-
-  const inputCEP = watch('cep')
-  const inputUF = watch('uf')
-  const inputADDRESS = watch('address')
-  const inputDISTRICT = watch('district')
-  const inputNUMBER = watch('number')
-  const inputCITY = watch('city')
-
-  const isFormComplete = !!(
-    inputCEP.length > 0 &&
-    inputUF.length > 0 &&
-    inputADDRESS.length > 0 &&
-    inputDISTRICT.length > 0 &&
-    inputNUMBER.length > 0 &&
-    inputCITY.length > 0
-  )
-
-  const isCheckoutComplete = isFormComplete && !isSubmitSaleForm
 
   return (
     <Container>
@@ -135,12 +120,12 @@ export function Checkout() {
       <ButtonFinishedCheckout
         form="formNewSales"
         type="submit"
-        disabled={!isCheckoutComplete}
+        disabled={!isSubmitSaleForm}
       >
         Finalizar pedido
       </ButtonFinishedCheckout>
 
-      {/* {isCheckoutComplete ? <Navigate to="/success"></Navigate> : null} */}
+      {isCheckoutComplete ? <Navigate to="/success"></Navigate> : null}
     </Container>
   )
 }
